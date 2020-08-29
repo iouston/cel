@@ -1,0 +1,68 @@
+# Dolibarr language file - fr_FR - 
+# Admin form
+CHARSET=UTF-8
+Module370000Desc=Module de validation en ligne des devis
+Module370000Name=CEL
+CELAdmin=Configuration du module CEL
+Configuration=Configuration
+CELOptions=Options du module CEL
+Value=Valeur
+Infos=Information
+UsageParameters=Paramètres d'utilisation
+IntegrationParameters=Paramètres d'intégration
+CcEmail=Etre en copie des emails ?
+DeliveryReceiptEmail=Demander un accusé de réception ?
+CcEmails=Liste des adresses emails additionnelles en copie
+UpdatePropalStatut=Mise à jour automatique des propositions commerciales ?
+TosAutoSend=Envoi automatique de l'email de validation des CGV ?
+ErrorUploadingCGV=Erreur lors du téléchargement des CGV
+CGVUploaded=CGV mises à jour
+SelectCGVFile=Vous pouvez mettre à jour vos CGV en utilisant le formulaire ci-dessous. Seul les fichiers au format PDF sont acceptés
+ReadCGVFile=Vous pouvez consulter vos CGV actuelles en cliquant sur le lien ci-dessous
+Ok=OK
+Cancel=Annuler
+WrongFileExtension=Cette extension de fichier n'est pas autorisée. Merci de ne sélectionner que des fichiers au format PDF
+#
+SecurityToken=Clé de sécurité
+# Tooltips
+SecurityTokenTooltip=Vous pouvez entrer votre clé de sécurité ou la générer automatiquement en cliquant sur l'icône situé à proximité
+CcEmailsTooltip=Entrez la liste des adresses email additionnelles à  placer en copie des emails de paiement et de confirmation. <br />Les adresses emails doivent être séparées par une virgule
+DeliveryReceiptEmailTooltip=Vous pouvez demander à recevoir un accusé de réception lors de l'envoi du lien de validation des CGV
+CcEmailTooltip=Vous pouvez choisir d'être en copie de l'email contenant le lien de validation des CGV. <br />L'adresse email utilisée est celle spécifiée dans la configuration initiale de Dolibarr
+UpdatePropalStatutTooltip=Vous pouvez choisir de mettre à jour automatiquement le statut des propositions commerciales dont les CGV ont été validées. <br />Si vous activez cette option, toutes les propositions commerciales dont les CGV auront été acceptées verront leur statut modifié en <em>signée</em>.
+TosAutoSendTooltip=Vous pouvez choisir de désactiver l'envoi automatique de l'email contenant le lien de validation des CGV. <br />Si vous désactivez cette option, vous devez ajouter l'attribut supplémentaire <em>cel_link</em> (de type chaîne) au module <em>Propositions commerciales</em>.
+#
+SetupSaved=Configuration sauvegardée
+# Emails subject
+CELEmailSubject=Lien pour la validation des CGV de la proposition commerciale __OBJREF__
+CELEmailSubjectValidation=Confirmation de validation de la proposition commerciale __OBJREF__
+CELEmailSubjectRejection=Confirmation du refus de la proposition commerciale __OBJREF__
+# 
+CELEmailBody=Bonjour,\nVous pouvez cliquer sur le lien sécurisé ci-dessous pour valider, via notre interface, les CGV de votre proposition commerciale __OBJREF__ à destination de __SOCNAM__ \n\n<a href="__CELURL__">__CELURL__</a>\n\nCordialement,\n__SOCNAM__\n
+CELEmailBodyValidation=Bonjour,\nNous vous informons que nous avons bien reçu votre validation de la proposition commerciale __OBJREF__ d'un montant de __AMOOBJ__ euros TTC. \n\nCordialement,\n__SOCNAM__\n
+CELEmailBodyRejection=Bonjour,\nNous vous informons que nous avons bien reçu votre refus pour la proposition commerciale __OBJREF__ d'un montant de __AMOOBJ__ euros TTC. \n\nCordialement,\n__SOCNAM__\n
+PropalReference=Référence proposition commerciale
+NoValidationObject=Il n'existe aucune CGV correspondant à votre requête. Nous vous invitons à nous contacter à l'adresse <strong>%s</strong> si vous observez ce message pour la première fois.
+PropalDraftObject=Cette proposition a déjà fait l'objet d'une validation. Nous vous invitons à nous contacter à l'adresse <strong>%s</strong> si vous observez ce message pour la première fois.
+#
+CELFormTitle=Formulaire de validation des CGV
+CELFormWelcomeTitle=Bienvenue sur notre service de validation en ligne de notre proposition commerciale et d'acceptation des CGV
+CELFormWelcomeText=Cet écran vous permet de consulter la proposition commerciale qui vous a été faite ainsi que nos CGV, et de les accepter.      
+CELFormDescText=Merci de vérifier que ces informations sont correctes puis cliquer sur le bouton "Accepter" pour valider cette proposition ainsi que ces CGV. <br />En cas d'erreur, vous pouvez envoyer un email à l'adresse <strong>%s</strong> en spécifiant la référence de la proposition.
+#
+CustomerName=Nom du client
+CustomerEmail=Email du client
+PropalPaymentMode=Mode de règlement
+PropalContent=Contenu de la proposition
+PropalTotalTTC=Total T.T.C.
+PropalTotalTVA=Total T.V.A.
+PropalTotalHT=Total H.T.
+BrowserErrorPDF=Ce navigateur ne gère pas le format PDF. Merci de cliquer <a href="%s">ici</a> pour télécharger les CGV.
+PropalValidate=Accepter
+PropalCancel=Refuser
+PropalValidateTerms=En cliquant sur "Accepter", le client reconnaît valider la proposition commerciale, avoir pris connaissance des conditions générales de vente et les accepter sans réserves.
+PropalValidated=Merci d'avoir validé cette proposition commerciale, un email de confirmation vous a été envoyé, merci de le conserver précieusement.
+PropalValidatedError=Merci d'avoir validé cette proposition commerciale.
+PropalRefused=Vous avez refusé cette proposition commerciale, un email de confirmation vous a été envoyé, merci de le conserver précieusement. N'hésitez pas à nous contacter à <strong>%s</strong> si vous souhaitez revenir vers nous.
+PropalRefusedError=Vous avez refusé cette proposition commerciale. N'hésitez pas à nous contacter à <strong>%s</strong> si vous souhaitez revenir vers nous.
+#
