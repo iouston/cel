@@ -50,7 +50,13 @@ $id = GETPOST('id', 'int');
 $object = new Propal($db);
 $object->fetch($id);
 
-$original_file = $conf->propal->dir_output.'/'.dol_sanitizeFileName($object->ref).'/'.dol_sanitizeFileName($object->ref).'.pdf';
+//prise en compte du module version devis par iouston
+if($conf->global->MAIN_MODULE_VERSIONSDEVIS==1){
+  $version ='_v'.$object->array_options['options_version_actuelle'];  
+}
+
+
+$original_file = $conf->propal->dir_output.'/'.dol_sanitizeFileName($object->ref).'/'.dol_sanitizeFileName($object->ref).$version.'.pdf';
 /*
  * Action
  */
