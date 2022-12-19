@@ -1,5 +1,6 @@
 <?php
 /* Copyright (C) 2012      Mikael Carlavan        <contact@mika-carl.fr>
+* Copyright (C) 2022 Julien Marchand <julien.marchand@iouston.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,7 +74,8 @@ header('Content-type: text/html; charset=utf-8');
         
         #validate-button{
             text-align : center;  
-        }                 
+        }      
+        .red{color:red; font-weight: bold;}           
     </style>
  
 	<script type="text/javascript" src="<?php echo DOL_URL_ROOT.'/includes/jquery/js/jquery.min.js'; ?>"></script>
@@ -126,19 +128,24 @@ header('Content-type: text/html; charset=utf-8');
          
 		<br /><br />
 		
-		<?php if ($cgv) { ?>
+		<?php /*if ($cgv) { ?>
 			<iframe src="<?php echo $cgv; ?>" width="100%" height="300px">
 			</iframe>
-         <?php } ?>
+         <?php } */?>
          
          <br /><br />
          
          <div id="validate-button">
-         	<input type="checkbox" value="1" id="validate-checkbox" /> <strong><?php echo $langs->trans('PropalValidateTerms'); ?></strong><br /><br />
+         	
 			 <form id="propalform" action="<?php echo dol_buildpath('/cel/cel.php', 2); ?>" method="post">
 				<input type="hidden" name="key" value="<?php echo $key; ?>" />
 				<input type="hidden" id="action" name="action" value="valid" />
-				<input id="valid-button" type="submit" class="butAction" value="<?php echo $langs->trans('PropalValidate'); ?>" disabled="disabled"/>&nbsp;<input id="cancel-button" type="submit" class="butActionDelete" value="<?php echo $langs->trans('PropalCancel'); ?>" />		
+                <input type="hidden" name="ipsignatory" value="<?php echo $_SERVER['REMOTE_ADDR']; ?>" />
+				<input id="firstname" name="firstname" type="text" value="" required="required" placeholder="Prénom"><span class="red">*</span><br>
+                <input id="lastname" name="lastname" type="text" value="" required="required" placeholder="Nom"><span class="red">*</span><br>
+                <input id="job" name="job" type="text" value="" required="required" placeholder="Profession"><span class="red">*</span><br><br>
+                <input type="checkbox" value="1" id="validate-checkbox" /> <strong><?php echo $langs->trans('PropalValidateTerms'); ?></strong><br /><br />
+                <input id="valid-button" type="submit" class="butAction" value="<?php echo $langs->trans('PropalValidate'); ?>" disabled="disabled"/>&nbsp;<input id="cancel-button" type="submit" class="butActionDelete" value="<?php echo $langs->trans('PropalCancel'); ?>" />		
 			 </form>
          </div>
     </div>

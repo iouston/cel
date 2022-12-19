@@ -1,4 +1,4 @@
-# Dolibarr language file - fr_FR - 
+# Dolibarr language file - fr_FR
 # Admin form
 CHARSET=UTF-8
 Module370000Desc=Module de validation en ligne des devis
@@ -46,10 +46,11 @@ NoValidationObject=Il n'existe aucune CGV correspondant à votre requête. Nous 
 PropalDraftObject=Cette proposition a déjà fait l'objet d'une validation. Nous vous invitons à nous contacter à l'adresse <strong>%s</strong> si vous observez ce message pour la première fois.
 #
 CELFormTitle=Formulaire de validation des CGV
-CELFormWelcomeTitle=Bienvenue sur notre service de validation en ligne de notre proposition commerciale et d'acceptation des CGV
+CELFormWelcomeTitle=Bienvenue sur notre service de validation en ligne de notre proposition commerciale
 CELFormWelcomeText=Cet écran vous permet de consulter la proposition commerciale qui vous a été faite ainsi que nos CGV, et de les accepter.      
 CELFormDescText=Merci de vérifier que ces informations sont correctes puis cliquer sur le bouton "Accepter" pour valider cette proposition ainsi que ces CGV. <br />En cas d'erreur, vous pouvez envoyer un email à l'adresse <strong>%s</strong> en spécifiant la référence de la proposition.
 #
+
 CustomerName=Nom du client
 CustomerEmail=Email du client
 PropalPaymentMode=Mode de règlement
@@ -61,8 +62,15 @@ BrowserErrorPDF=Ce navigateur ne gère pas le format PDF. Merci de cliquer <a hr
 PropalValidate=Accepter
 PropalCancel=Refuser
 PropalValidateTerms=En cliquant sur "Accepter", le client reconnaît valider la proposition commerciale, avoir pris connaissance des conditions générales de vente et les accepter sans réserves.
-PropalValidated=Merci d'avoir validé cette proposition commerciale, un email de confirmation vous a été envoyé, merci de le conserver précieusement.
+PropalValidated=Merci d'avoir validé cette proposition commerciale, un email de confirmation vous a été envoyé et nous avons également été prévenus.
 PropalValidatedError=Merci d'avoir validé cette proposition commerciale.
 PropalRefused=Vous avez refusé cette proposition commerciale, un email de confirmation vous a été envoyé, merci de le conserver précieusement. N'hésitez pas à nous contacter à <strong>%s</strong> si vous souhaitez revenir vers nous.
 PropalRefusedError=Vous avez refusé cette proposition commerciale. N'hésitez pas à nous contacter à <strong>%s</strong> si vous souhaitez revenir vers nous.
-#
+CELFirstName=Prénom
+CELLastName=Nom
+CELJob=Profession
+CELSignedBy=Devis signé en ligne par : 
+CELJobName=qui est : 
+CELDateSign=le : 
+CELFromIP=Depuis l'adresse ip :
+CELUsedKey=Clé d'accès en ligne utilisée : 

@@ -24,6 +24,10 @@ CREATE TABLE IF NOT EXISTS `llx_cel`(
 	`datec`			datetime NOT NULL,  
 	`type`			varchar(32) NOT NULL,
 	`fk_object`      int(11) DEFAULT 0 NOT NULL,
-
+	`firstname` varchar(255) DEFAULT NULL,
+  	`lastname` varchar(255) DEFAULT NULL,
+  	`job` varchar(255) DEFAULT NULL,
+  	`ipsignatory` int(10) UNSIGNED DEFAULT NULL,
+  	`datesignature` date DEFAULT NULL
   PRIMARY KEY (`rowid`)    
 )ENGINE=innodb DEFAULT CHARSET=utf8;

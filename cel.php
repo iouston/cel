@@ -1,5 +1,6 @@
 <?php
 /* Copyright (C) 2012      Mikael Carlavan        <mcarlavan@qis-network.com>
+ * Copyright (C) 2022 Julien Marchand <julien.marchand@iouston.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,8 +53,12 @@ $langs->load("companies");
 $langs->load("errors");
 $langs->load("cel@cel");
 
-$key    = GETPOST("key", 'alpha');
-$action    = GETPOST("action", 'alpha');
+$key    		= GETPOST("key", 'alpha');
+$action    		= GETPOST("action", 'alpha');
+$firstname    	= GETPOST("firstname", 'alpha');
+$lastname    	= GETPOST("lastname", 'alpha');
+$job    		= GETPOST("job", 'alpha');
+$ipsignatory    = GETPOST("ipsignatory", 'alpha');
 
 $error = false;
 $message = false;
@@ -88,23 +93,38 @@ $creditorName = $societyName;
 $currency = $conf->currency;
 	
 // Define logo and logosmall
-$urlLogo = '';
+($conf->entity ==1 ? $entity='' : $entity = $conf->entity);
 if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small))
 {
-	$urlLogo = DOL_URL_ROOT.'/viewimage.php?modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
+	// $urlLogo = $dolpath.'/viewimage.php?modulepart=companylogo&amp;file='.urlencode('thumbs/'.$mysoc->logo_small);
+	$urlLogo = dol_buildpath('documents/'.$entity.'mycompany/logos/thumbs/'.$mysoc->logo_small,2);
+	
 }
 elseif (! empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo))
 {
-	$urlLogo = DOL_URL_ROOT.'/viewimage.php?modulepart=companylogo&amp;file='.urlencode($mysoc->logo);
+	// $urlLogo = $dolpath.'/viewimage.php?modulepart=companylogo&amp;file='.urlencode($mysoc->logo);
+	$urlLogo = dol_buildpath('documents/'.$entity.'mycompany/logos/'.$mysoc->logo,2);
+	
 }
-				
+	
 if (!$error)
 {		
 	if ($action == 'valid')
 	{   
+
+		$cel->firstname = $firstname;
+		$cel->lastname = $lastname;
+		$cel->job = $job;
+		$cel->ipsignatory = $ipsignatory;
+
+		$cel->update($user);
+		$cel->fetch('',$key,1);
+
+		$item->note = $langs->trans('CELSignedBy').$firstname.' '.$lastname.', '.$langs->trans('CELJobName').$job.' '.$langs->trans('CELDateSign').' '.dol_print_date($cel->datesignature).' '.$langs->trans('CELFromIP').' '.$ipsignatory.' '.$langs->trans('CELUsedKey').' '.$key;
+				
 		// For foreign key
 		$user->id = 1;
-		$item->cloture($user, 2, $item->note);
+		$item->closeProposal($user, 2, $item->note);
 		$user->id = 0;
 
 		/*
@@ -139,7 +159,7 @@ if (!$error)
 
 		$mail = new CMailFile($subject, $sendto, $from, $message, array(), array(), array(), $addr_cc, "", $deliveryreceipt, 1);
 		$result = $mail->error;
-		
+				
 		$result = $mail->sendfile();
 		if ($result)
 		{

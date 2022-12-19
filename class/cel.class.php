@@ -1,6 +1,7 @@
 <?php
-/* Copyright (C) 2012      Mikael Carlavan        <contact@mika-carl.fr>
- *                                                http://www.mikael-carlavan.fr
+/* Copyright (C) 2012      Mikael Carlavan        <contact@mika-carl.fr> http://www.mikael-carlavan.fr
+ * Copyright (C) 2022 Julien Marchand <julien.marchand@iouston.com>
+ *                                                
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,9 +62,10 @@ class CEL extends CommonObject
 	 *
 	 * @param 	id	    Id of the payment
      * @param 	key  	Key of the payment
+     * @param   all 	0 = return just id, 1 return all fields
 	 * @return 	int		<0 if KO, >0 if OK
 	 */
-	function fetch($id, $key = '')
+	function fetch($id, $key = '', $all=0)
 	{
 	    global $conf, $langs;
 
@@ -72,7 +74,7 @@ class CEL extends CommonObject
 			return -1;
         }
         
-        $sql = "SELECT c.rowid, c.ref, c.key, c.type, c.fk_object, c.datec";
+        $sql = "SELECT c.rowid, c.ref, c.key, c.type, c.fk_object, c.datec, c.lastname, c.firstname, c.job, c.ipsignatory, c.datesignature";
         $sql.= " FROM ".MAIN_DB_PREFIX."cel as c";
         $sql.= " WHERE c.entity = ".$conf->entity;
     
@@ -97,8 +99,18 @@ class CEL extends CommonObject
 				$this->datec             = $this->db->jdate($obj->datec);			
 				$this->type    			= trim($obj->type);
 				$this->fk_object    	= $obj->fk_object;
+				$this->firstname    	= $obj->firstname;
+				$this->lastname    		= $obj->lastname;
+				$this->job    			= $obj->job;
+				$this->ipsignatory    	=  long2ip($obj->ipsignatory);
+				$this->datesignature 	= $this->db->jdate($obj->datesignature);
 
-				return $this->id;
+				if($all==0){
+					return $this->id;
+				}else{
+					return $this;
+				}
+				
             }
             else
             {
@@ -111,6 +123,9 @@ class CEL extends CommonObject
 			return -1;
 		}
 	}
+
+
+
 	
 	
 	/**
@@ -133,7 +148,7 @@ class CEL extends CommonObject
         $sql.= ", `key`";
         $sql.= ", `type`";
 		$sql.= ", `fk_object`";
-        $sql.= ") ";
+		$sql.= ") ";
         $sql.= " VALUES (";
 		$sql.= " ".($this->ref ? "'".$this->db->escape($this->ref)."'" : "''");
 		$sql.= ", ".$conf->entity." ";
@@ -143,6 +158,8 @@ class CEL extends CommonObject
 		$sql.= ", ".($this->fk_object ? $this->fk_object : 0);
 		$sql.= ")";
 
+echo $sql;
+
 		dol_syslog("CEL::create sql=".$sql, LOG_DEBUG);
 
 		$result = $this->db->query($sql);
@@ -151,6 +168,42 @@ class CEL extends CommonObject
 		{
 			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."cel");
 			return $this->id;
+		}
+		else
+		{
+			$this->error = $this->db->error()." sql=".$sql;
+			return -1;
+		}
+
+	}
+
+	/**
+	 * update object in database
+	 * @param 	$user	User that creates
+	 * @return 	int		<0 if KO, >0 if OK
+	 */
+
+	function update($user)	
+	{
+		global $conf, $langs;
+
+        $this->datesignature = dol_now();
+
+		$sql = "UPDATE ".MAIN_DB_PREFIX."cel SET";
+        $sql.= " `firstname` = '".$this->db->escape($this->firstname)."'";
+		$sql.= ", `lastname` = '".$this->db->escape($this->lastname)."'";
+		$sql.= ", `job` = '".$this->db->escape($this->job)."'";
+		$sql.= ", `ipsignatory` = '".ip2long($this->ipsignatory)."'";
+		$sql.= ", `datesignature` = '".$this->db->idate($this->datesignature)."'";
+        $sql.= " WHERE `rowid` = ".$this->id;
+
+		dol_syslog("CEL::update sql=".$sql, LOG_DEBUG);
+
+		$result = $this->db->query($sql);
+
+		if ($result)
+		{
+			return 1;
 		}
 		else
 		{
